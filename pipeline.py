@@ -4,7 +4,18 @@ import sys
 from typing import Sequence, Mapping, Any, Union
 import torch
 
-
+from nodes import (
+    CheckpointLoaderSimple,
+    CLIPTextEncode,
+    LoraLoader,
+    VAEEncode,
+    KSampler,
+    SaveImage,
+    NODE_CLASS_MAPPINGS,
+    LoadImage,
+    VAEDecode,
+    VAELoader,
+)
 import cv2
 
 
@@ -88,18 +99,7 @@ def add_extra_model_paths() -> None:
 add_comfyui_directory_to_sys_path()
 add_extra_model_paths()
 
-from nodes import (
-    CheckpointLoaderSimple,
-    CLIPTextEncode,
-    LoraLoader,
-    VAEEncode,
-    KSampler,
-    SaveImage,
-    NODE_CLASS_MAPPINGS,
-    LoadImage,
-    VAEDecode,
-    VAELoader,
-)
+
 
 class Pipeline:
     def __init__(self):
