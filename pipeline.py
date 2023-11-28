@@ -102,92 +102,155 @@ add_extra_model_paths()
 
 
 class Pipeline:
-    def __init__(self):
+    def __init__(self , model_name=None , lora_name=None , vae_name=None , steps=None , denoise=None , cfg=None , prompt=None):
         # Constructor function to initialize the class
+        self.load_pipeline=True
+        self.model_name=model_name
+        self.lora_name=lora_name
+        self.vae_name=vae_name
+        self.steps=steps
+        self.denoise=denoise
+        self.cfg=cfg
+        self.prompt=prompt
+        
         with torch.inference_mode():
             self.checkpointloadersimple = CheckpointLoaderSimple()
-            self.checkpointloadersimple_14 = self.checkpointloadersimple.load_checkpoint(
-                ckpt_name="taureal.safetensors"
-            )
+            try:
+                self.checkpointloadersimple_14 = self.checkpointloadersimple.load_checkpoint(
+                    ckpt_name=self.model_name
+                )
 
-            self.loraloader = LoraLoader()
-            self.loraloader_16 = self.loraloader.load_lora(
-                lora_name="lcm.safetensors",
-                strength_model=1,
-                strength_clip=1,
-                model=get_value_at_index(self.checkpointloadersimple_14, 0),
-                clip=get_value_at_index(self.checkpointloadersimple_14, 1),
-            )
+                self.loraloader = LoraLoader()
+                self.loraloader_16 = self.loraloader.load_lora(
+                    lora_name=self.lora_name,
+                    strength_model=1,
+                    strength_clip=1,
+                    model=get_value_at_index(self.checkpointloadersimple_14, 0),
+                    clip=get_value_at_index(self.checkpointloadersimple_14, 1),
+                )
 
-            self.cliptextencode = CLIPTextEncode()
-            self.cliptextencode_6 = self.cliptextencode.encode(
-                text="Sexy Woman , (white skinned:1.5) , cleavage , tight breasts , huge breasts , hd , 4k , ultra realistic , hyper realistic , photo realistic\n",
-                clip=get_value_at_index(self.loraloader_16, 1),
-            )
+                self.cliptextencode = CLIPTextEncode()
 
-            self.cliptextencode_7 = self.cliptextencode.encode(
-                text="watermark, text\n", clip=get_value_at_index(self.loraloader_16, 1)
-            )
+                self.loadimage = LoadImage()
+                self.loadimage_10 = self.loadimage.load_image(image="ComfyUI_00002_.png")
 
-            self.loadimage = LoadImage()
-            self.loadimage_10 = self.loadimage.load_image(image="ComfyUI_00002_.png")
+                self.vaeloader = VAELoader()
+                self.vaeloader_15 = self.vaeloader.load_vae(
+                    vae_name=self.vae_name
+                )
+                self.vaeencode = VAEEncode()
+                self.vaeencode_12 = self.vaeencode.encode(
+                    pixels=get_value_at_index(self.loadimage_10, 0),
+                    vae=get_value_at_index(self.vaeloader_15, 0),
+                )
 
-            self.vaeloader = VAELoader()
-            self.vaeloader_15 = self.vaeloader.load_vae(
-                vae_name="vae-ft-mse-840000-ema-pruned.vae.pt"
-            )
+                self.ksampler = KSampler()
+                self.vaedecode = VAEDecode()
+                self.saveimage = SaveImage()
+            except:
+                self.load_pipeline=False
 
-            self.vaeencode = VAEEncode()
-            self.vaeencode_12 = self.vaeencode.encode(
-                pixels=get_value_at_index(self.loadimage_10, 0),
-                vae=get_value_at_index(self.vaeloader_15, 0),
-            )
 
-            self.ksampler = KSampler()
-            self.vaedecode = VAEDecode()
-            self.saveimage = SaveImage()
-
-    def process_frame(self):
+    def update_settings(self, model_name=None , lora_name=None , vae_name=None , steps=None , denoise=None , cfg=None , prompt=None):
+        if model_name is not None:
+            self.model_name=model_name
+        if lora_name is not None:
+            self.lora_name=lora_name
+        if vae_name is not None:
+            self.vae_name=vae_name
+        if steps is not None:
+            self.steps=steps
+        if denoise is not None:
+            self.denoise=denoise
+        if cfg is not None:
+            self.cfg=cfg
+        if prompt is not None:
+            self.prompt=prompt
         with torch.inference_mode():
-            # Member function to increment the value
-            self.loadimage_10 = self.loadimage.load_image(image="test.png")
+            self.checkpointloadersimple = CheckpointLoaderSimple()
+            try:
+                self.checkpointloadersimple_14 = self.checkpointloadersimple.load_checkpoint(
+                    ckpt_name=self.model_name
+                )
 
-            #vaeloader = VAELoader()
-            self.vaeloader_15 = self.vaeloader.load_vae(
-                vae_name="vae-ft-mse-840000-ema-pruned.vae.pt"
-            )
+                self.loraloader = LoraLoader()
+                self.loraloader_16 = self.loraloader.load_lora(
+                    lora_name=self.lora_name,
+                    strength_model=1,
+                    strength_clip=1,
+                    model=get_value_at_index(self.checkpointloadersimple_14, 0),
+                    clip=get_value_at_index(self.checkpointloadersimple_14, 1),
+                )
 
-            
-            #vaeencode = VAEEncode()
-            self.vaeencode_12 = self.vaeencode.encode(
-                pixels=get_value_at_index(self.loadimage_10, 0),
-                vae=get_value_at_index(self.vaeloader_15, 0),
-            )
-            self.ksampler_3 = self.ksampler.sample(
-                seed=random.randint(1, 2**64),
-                steps=7,
-                cfg=1.5,
-                sampler_name="lcm",
-                scheduler="normal",
-                denoise=0.5,
-                model=get_value_at_index(self.loraloader_16, 0),
-                positive=get_value_at_index(self.cliptextencode_6, 0),
-                negative=get_value_at_index(self.cliptextencode_7, 0),
-                latent_image=get_value_at_index(self.vaeencode_12, 0),
-            )
+                self.cliptextencode = CLIPTextEncode()
 
-            self.vaedecode_8 = self.vaedecode.decode(
-                samples=get_value_at_index(self.ksampler_3, 0),
-                vae=get_value_at_index(self.vaeloader_15, 0),
-            )
-            code=get_value_at_index(self.vaedecode_8, 0)
-            self.saveimage_9 = self.saveimage.save_images(
-                filename_prefix="ComfyUI", images= code
-            )
+                self.loadimage = LoadImage()
+                self.loadimage_10 = self.loadimage.load_image(image="ComfyUI_00002_.png")
 
-    
-            name=self.saveimage_9["ui"]["images"][0]["filename"]
-            gen=cv2.imread(f"E:\\ComfyUI\\output\\{name}" ,  cv2.IMREAD_COLOR)
+                self.vaeloader = VAELoader()
+                self.vaeloader_15 = self.vaeloader.load_vae(
+                    vae_name=self.vae_name
+                )
+                self.vaeencode = VAEEncode()
+                self.vaeencode_12 = self.vaeencode.encode(
+                    pixels=get_value_at_index(self.loadimage_10, 0),
+                    vae=get_value_at_index(self.vaeloader_15, 0),
+                )
+
+                self.ksampler = KSampler()
+                self.vaedecode = VAEDecode()
+                self.saveimage = SaveImage()
+                self.load_pipeline=True
+            except:
+                self.load_pipeline=False
+    def process_frame(self, model_name=None , lora_name=None , vae_name=None , steps=None , denoise=None , cfg=None , prompt=None):
+
+        with torch.inference_mode():
+            if self.load_pipeline:
+                # Member function to increment the value
+                self.loadimage_10 = self.loadimage.load_image(image="test.png")
+
+                self.cliptextencode_6 = self.cliptextencode.encode(
+                    text=self.prompt,
+                    clip=get_value_at_index(self.loraloader_16, 1),
+                )
+
+                self.cliptextencode_7 = self.cliptextencode.encode(
+                    text="watermark, text\n", clip=get_value_at_index(self.loraloader_16, 1)
+                )
+
+                #vaeencode = VAEEncode()
+                self.vaeencode_12 = self.vaeencode.encode(
+                    pixels=get_value_at_index(self.loadimage_10, 0),
+                    vae=get_value_at_index(self.vaeloader_15, 0),
+                )
+                self.ksampler_3 = self.ksampler.sample(
+                    seed=random.randint(1, 2**64),
+                    steps=self.steps,
+                    cfg=self.cfg,
+                    sampler_name="lcm",
+                    scheduler="normal",
+                    denoise=self.denoise,
+                    model=get_value_at_index(self.loraloader_16, 0),
+                    positive=get_value_at_index(self.cliptextencode_6, 0),
+                    negative=get_value_at_index(self.cliptextencode_7, 0),
+                    latent_image=get_value_at_index(self.vaeencode_12, 0),
+                )
+
+                self.vaedecode_8 = self.vaedecode.decode(
+                    samples=get_value_at_index(self.ksampler_3, 0),
+                    vae=get_value_at_index(self.vaeloader_15, 0),
+                )
+                code=get_value_at_index(self.vaedecode_8, 0)
+                self.saveimage_9 = self.saveimage.save_images(
+                    filename_prefix="ComfyUI", images= code
+                )
+
+        
+                name=self.saveimage_9["ui"]["images"][0]["filename"]
+                gen=cv2.imread(f"E:\\ComfyUI\\output\\{name}" ,  cv2.IMREAD_COLOR)
+            else:
+                gen=cv2.imread(f"E:\\ComfyUI\\input\\test.png" ,  cv2.IMREAD_COLOR)
         return gen
 
 

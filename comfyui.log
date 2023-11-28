@@ -1,15 +1,10 @@
-** ComfyUI start up time: 2023-11-26 23:54:35.065942
+** ComfyUI start up time: 2023-11-27 23:06:50.495993
 
 Prestartup times for custom nodes:
    0.0 seconds: E:\ComfyUI\custom_nodes\rgthree-comfy
    0.0 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Manager
 
-Total VRAM 8188 MB, total RAM 16003 MB
-xformers version: 0.0.21
-Set vram state to: NORMAL_VRAM
-Device: cuda:0 NVIDIA GeForce RTX 4060 Laptop GPU : cudaMallocAsync
-VAE dtype: torch.bfloat16
-Using xformers cross attention
+extra_model_paths.yaml found: E:\ComfyUI\extra_model_paths.yaml
 Adding extra search path checkpoints E:\stable-diffusion-webui\models/Stable-diffusion
 Adding extra search path configs E:\stable-diffusion-webui\models/Stable-diffusion
 Adding extra search path vae E:\stable-diffusion-webui\models/VAE
@@ -21,53 +16,6 @@ Adding extra search path upscale_models E:\stable-diffusion-webui\models/SwinIR
 Adding extra search path embeddings E:\stable-diffusion-webui\embeddings
 Adding extra search path hypernetworks E:\stable-diffusion-webui\models/hypernetworks
 Adding extra search path controlnet E:\stable-diffusion-webui\models/ControlNet
-### Loading: ComfyUI-Impact-Pack (V4.34.2)
-### Loading: ComfyUI-Impact-Pack (Subpack: V0.3.2)
-### Loading: ComfyUI-Manager (V1.4.1)
-### ComfyUI Revision: 1735 [5b37270d] | Released on '2023-11-25'
-Traceback (most recent call last):
-  File "E:\ComfyUI\nodes.py", line 1798, in load_custom_node
-    module_spec.loader.exec_module(module)
-  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
-  File "<frozen importlib._bootstrap_external>", line 1016, in get_code
-  File "<frozen importlib._bootstrap_external>", line 1073, in get_data
-FileNotFoundError: [Errno 2] No such file or directory: 'E:\\ComfyUI\\custom_nodes\\ComfyUI-to-Python-Extension\\__init__.py'
-
-Cannot import E:\ComfyUI\custom_nodes\ComfyUI-to-Python-Extension module for custom nodes: [Errno 2] No such file or directory: 'E:\\ComfyUI\\custom_nodes\\ComfyUI-to-Python-Extension\\__init__.py'
-[VideoHelperSuite] - [0;32mINFO[0m - ffmpeg could not be found. Using ffmpeg from imageio-ffmpeg.
-[36;20m[comfyui_controlnet_aux] | INFO -> Using ckpts path: E:\ComfyUI\custom_nodes\comfyui_controlnet_aux\ckpts[0m
-E:\ComfyUI\custom_nodes\comfyui_controlnet_aux\node_wrappers\dwpose.py:24: UserWarning: DWPose: Onnxruntime not found or doesn't come with acceleration providers, switch to OpenCV with CPU device. DWPose might run very slowly
-  warnings.warn("DWPose: Onnxruntime not found or doesn't come with acceleration providers, switch to OpenCV with CPU device. DWPose might run very slowly")
-[36mEfficiency Nodes:[0m Attempting to add Control Net options to the 'HiRes-Fix Script' Node (comfyui_controlnet_aux add-on)...[92mSuccess![0m
-
-[32m[1m[rgthree] Loaded 15 exciting nodes.[0m
-[32m[rgthree] Optimizing ComfyUI recursive execution. [33mIf queueing and/or re-queueing seems broken, change "patch_recursive_execution" to false in rgthree_config.json [0m
-
-
-Import times for custom nodes:
-   0.0 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Image-Selector
-   0.0 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Logic
-   0.0 seconds (IMPORT FAILED): E:\ComfyUI\custom_nodes\ComfyUI-to-Python-Extension
-   0.0 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Custom-Scripts
-   0.0 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Frame-Interpolation
-   0.0 seconds: E:\ComfyUI\custom_nodes\ComfyUI_UltimateSDUpscale
-   0.0 seconds: E:\ComfyUI\custom_nodes\efficiency-nodes-comfyui
-   0.1 seconds: E:\ComfyUI\custom_nodes\ComfyUI-VideoHelperSuite
-   0.1 seconds: E:\ComfyUI\custom_nodes\comfyui_controlnet_aux
-   0.1 seconds: E:\ComfyUI\custom_nodes\rgthree-comfy
-   0.5 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Manager
-   1.8 seconds: E:\ComfyUI\custom_nodes\ComfyUI-Impact-Pack
-
-Starting server
-
-To see the GUI go to: http://127.0.0.1:8188
-got prompt
-ERROR:root:Failed to validate prompt for output 9:
-ERROR:root:* CheckpointLoaderSimple 14:
-ERROR:root:  - Value not in list: ckpt_name: 'v1-5-pruned-emaonly.ckpt' not in (list of length 27)
-ERROR:root:Output will be ignored
-invalid prompt: {'type': 'prompt_outputs_failed_validation', 'message': 'Prompt outputs failed validation', 'details': '', 'extra_info': {}}
-got prompt
 model_type EPS
 adm 0
 Using xformers attention in VAE
@@ -79,65 +27,13 @@ left over keys: dict_keys(['lora_te_text_model_encoder_layers_0_mlp_fc1.alpha', 
 loaded straight to GPU
 Requested to load BaseModel
 Loading 1 new model
-Requested to load SD1ClipModel
-Loading 1 new model
-100%|██████████████████████████████████████████████████████████████████████████████████| 20/20 [00:05<00:00,  3.84it/s]100%|██████████████████████████████████████████████████████████████████████████████████| 20/20 [00:05<00:00,  3.47it/s]
 Global Step: 840001
 Using xformers attention in VAE
 Working with z of shape (1, 4, 32, 32) = 4096 dimensions.
 Using xformers attention in VAE
 Leftover VAE keys ['model_ema.decay', 'model_ema.num_updates']
-E:\ComfyUI\nodes.py:1362: RuntimeWarning: invalid value encountered in cast
-  img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
-Prompt executed in 12.11 seconds
-got prompt
-
-Prompt executed in 4.39 seconds
-got prompt
-100%|██████████████████████████████████████████████████████████████████████████████████| 20/20 [00:05<00:00,  3.82it/s]100%|██████████████████████████████████████████████████████████████████████████████████| 20/20 [00:05<00:00,  3.83it/s]
-Prompt executed in 6.69 seconds
-got prompt
 Requested to load SD1ClipModel
 Loading 1 new model
-unload clone 1
 Requested to load BaseModel
 Loading 1 new model
 unload clone 1
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  3.76it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  3.65it/s]
-Prompt executed in 6.02 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:02<00:00,  3.67it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:02<00:00,  3.28it/s]
-Prompt executed in 4.39 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  7.38it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  6.61it/s]
-Prompt executed in 2.45 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  6.92it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  5.46it/s]
-Prompt executed in 1.72 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  7.19it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  5.81it/s]
-Prompt executed in 1.62 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  7.19it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  5.80it/s]
-Prompt executed in 1.65 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  7.23it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  5.87it/s]
-Prompt executed in 1.61 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  7.19it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  5.66it/s]
-Prompt executed in 1.65 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  7.43it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  6.36it/s]
-Prompt executed in 1.56 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  6.97it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 7/7 [00:01<00:00,  5.53it/s]
-Prompt executed in 1.74 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00,  5.62it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00,  4.56it/s]
-Prompt executed in 1.36 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  4.47it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  4.12it/s]
-Prompt executed in 0.90 seconds
-got prompt
-100%|████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00,  5.92it/s]100%|████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00<00:00,  4.98it/s]
-Prompt executed in 1.23 seconds
